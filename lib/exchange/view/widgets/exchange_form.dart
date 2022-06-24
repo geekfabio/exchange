@@ -117,7 +117,7 @@ class _ExchangeFormState extends State<ExchangeForm> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const Text(
-                  'Amount',
+                  'Converted Value',
                   style: TextStyle(color: Colors.white),
                 ),
                 const SizedBox(
@@ -130,7 +130,7 @@ class _ExchangeFormState extends State<ExchangeForm> {
                       color: Colors.white,
                     ),
                     Text(
-                      'Digit here ammount',
+                      'Ammount in Kwanza',
                       style: TextStyle(color: Colors.grey),
                     ),
                     Spacer(),
