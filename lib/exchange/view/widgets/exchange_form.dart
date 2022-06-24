@@ -142,7 +142,8 @@ class _ExchangeFormState extends State<ExchangeForm> {
                 ),
               ],
             ),
-          )
+          ),
+          TextButton(onPressed: () {}, child: const Text('Converter'))
         ],
       ),
     );
