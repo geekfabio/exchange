@@ -7,7 +7,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Exchange Bai')),
