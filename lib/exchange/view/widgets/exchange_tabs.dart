@@ -27,10 +27,8 @@ class _ExchangeTabsState extends State<ExchangeTabs> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // ignore: avoid_bool_literals_in_conditional_expressions
-              _tabButtom('Sale', _selectedTab == 0 ? true : false),
-              // ignore: avoid_bool_literals_in_conditional_expressions
-              _tabButtom('Buy', _selectedTab != 0 ? true : false),
+              _tabButtom('Manual', _selectedTab == 0 ? true : false),
+              _tabButtom('Automático', _selectedTab != 0 ? true : false),
             ],
           ),
         ),
