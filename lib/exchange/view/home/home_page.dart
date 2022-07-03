@@ -18,12 +18,12 @@ class HomePage extends StatelessWidget {
         children: const [
           //Page Header
           SizedBox(
-            height: 48,
+            height: 10,
           ),
           ExchangeTabs(),
           //Page Form
           ExchangeForm(),
-          Spacer()
+          Spacer(),
         ],
       ),
     );
