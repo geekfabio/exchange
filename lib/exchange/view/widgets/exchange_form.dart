@@ -1,3 +1,5 @@
+import 'package:exchange/app/theme/app_style.dart';
+import 'package:exchange/exchange/view/widgets/exchange_form_field.dart';
 import 'package:flutter/material.dart';
 
 class ExchangeForm extends StatefulWidget {
@@ -23,40 +25,17 @@ class _ExchangeFormState extends State<ExchangeForm> {
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.all(18),
             width: double.maxFinite,
-            height: 80,
+            height: 150,
             decoration: BoxDecoration(
               color: const Color.fromRGBO(27, 26, 28, 1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Text(
-                  'Moeda',
-                  style: TextStyle(color: Colors.white),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: const [
-                    Icon(
-                      Icons.currency_exchange_outlined,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                    Text(
-                      '  Dollar',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Spacer(),
-                    Text(
-                      ' USD',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                )
+              children: const [
+                ExchanceFormField(hintText: 'Cambio'),
+                SizedBox(height: 5),
+                ExchanceFormField(hintText: 'Valor a converter USD'),
               ],
             ),
           ),
@@ -64,31 +43,7 @@ class _ExchangeFormState extends State<ExchangeForm> {
             padding: const EdgeInsets.all(6),
             margin: const EdgeInsets.only(top: 5, left: 18, right: 18),
             width: double.maxFinite,
-            height: 100,
-            decoration: BoxDecoration(
-              color: const Color.fromRGBO(27, 26, 28, 1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Text(
-                  'Quantidade USD',
-                  style: TextStyle(color: Colors.white),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(child: const TextField()),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(6),
-            margin: const EdgeInsets.only(top: 5, left: 18, right: 18),
-            width: double.maxFinite,
-            height: 80,
+            height: 150,
             decoration: BoxDecoration(
               color: const Color.fromRGBO(27, 26, 28, 1),
               borderRadius: BorderRadius.circular(10),
@@ -98,18 +53,34 @@ class _ExchangeFormState extends State<ExchangeForm> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
                 Text(
-                  'Converted Value',
-                  style: TextStyle(color: Colors.white),
+                  'Quantidade:',
+                  style: AppStyle.textBody,
+                ),
+                Text(
+                  'Taxa carregar:',
+                  style: AppStyle.textBody,
+                ),
+                Text(
+                  'Taxa Wise:',
+                  style: AppStyle.textBody,
+                ),
+                Text(
+                  'Resultado:',
+                  style: AppStyle.textBody,
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 2,
                 ),
               ],
             ),
           ),
 
           // ? Button to convert currency
-          TextButton(onPressed: () {}, child: const Text('Converter'))
+          ElevatedButton(
+            onPressed: () {},
+            style: AppStyle.primaryButton,
+            child: const Text('Converter'),
+          )
         ],
       ),
     );
