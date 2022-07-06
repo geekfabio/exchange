@@ -9,12 +9,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Exchange Bai')),
+        title: const Center(child: Text('Cambio Bai')),
         backgroundColor: const Color.fromRGBO(27, 26, 28, 1),
         elevation: 0,
       ),
       backgroundColor: const Color.fromRGBO(27, 26, 28, 1),
-      body: Column(
+      body: ListView(
         children: const [
           //Page Header
           SizedBox(
