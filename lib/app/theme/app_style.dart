@@ -14,7 +14,7 @@ class AppStyle {
       TextStyle(color: Color.fromARGB(255, 190, 190, 190));
 
   static const TextStyle textPrimary = TextStyle(
-    color: Color.fromARGB(255, 78, 70, 70),
+    color: Color.fromARGB(255, 255, 255, 255),
     fontWeight: FontWeight.w600,
   );
 }
