@@ -17,8 +17,8 @@ class _ExchangeTabsState extends State<ExchangeTabs> {
           _selectedTab = _selectedTab == 0 ? 1 : 0;
         }),
         child: Container(
-          padding: const EdgeInsets.all(10),
-          margin: const EdgeInsets.all(18),
+          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: const Color.fromRGBO(31, 31, 31, 1),
             borderRadius: BorderRadius.circular(10),
@@ -42,7 +42,7 @@ class _ExchangeTabsState extends State<ExchangeTabs> {
         duration: const Duration(milliseconds: 500),
         curve: Curves.fastLinearToSlowEaseIn,
         width: double.maxFinite,
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: selected
               ? const Color.fromRGBO(47, 46, 52, 1)
