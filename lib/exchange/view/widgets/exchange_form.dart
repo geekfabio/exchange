@@ -14,7 +14,6 @@ class _ExchangeFormState extends State<ExchangeForm> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(18),
-      width: double.maxFinite,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: const Color.fromRGBO(31, 31, 31, 1),
@@ -22,12 +21,8 @@ class _ExchangeFormState extends State<ExchangeForm> {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.all(18),
-            width: double.maxFinite,
-            height: 150,
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(27, 26, 28, 1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
@@ -40,12 +35,9 @@ class _ExchangeFormState extends State<ExchangeForm> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(6),
-            margin: const EdgeInsets.only(top: 5, left: 18, right: 18),
+            margin: const EdgeInsets.only(left: 18, right: 18),
             width: double.maxFinite,
-            height: 150,
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(27, 26, 28, 1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
@@ -66,21 +58,19 @@ class _ExchangeFormState extends State<ExchangeForm> {
                 ),
                 Text(
                   'Resultado:',
-                  style: AppStyle.textBody,
-                ),
-                SizedBox(
-                  height: 2,
+                  style: AppStyle.textPrimary,
                 ),
               ],
             ),
           ),
-
+          const SizedBox(height: 15),
           // ? Button to convert currency
           ElevatedButton(
             onPressed: () {},
             style: AppStyle.primaryButton,
             child: const Text('Converter'),
-          )
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
