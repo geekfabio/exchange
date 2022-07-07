@@ -1,3 +1,4 @@
+import 'package:exchange/exchange/view/widgets/exchange_automatic_form.dart';
 import 'package:exchange/exchange/view/widgets/exchange_form.dart';
 import 'package:exchange/exchange/view/widgets/exchange_tabs.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,10 @@ class HomePage extends StatelessWidget {
             height: 7,
           ),
           ExchangeTabs(),
-          //Page Form
+          //Form Manual
           ExchangeForm(),
+          //Form Automatic
+          ExchangeAutomaticForm()
         ],
       ),
     );

@@ -61,7 +61,7 @@ class _ExchangeFormState extends State<ExchangeForm> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Quantidade: $_resulTaxCharged',
+                  'Imposto (14%): $_resulTaxCharged',
                   style: AppStyle.textBody,
                 ),
                 Text(
