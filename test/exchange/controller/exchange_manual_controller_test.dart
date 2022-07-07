@@ -44,13 +44,14 @@ void main() {
         0,
       );
     });
-    test('When getNoTaxResult is Invalid format return 0', () {
-      final result = controller.getFinalResult(value: kValue, cambio: kCambio);
-      //result
-      expect(
-        result,
-        46013.41956,
-      );
-    });
+  });
+
+  test('When getNoTaxResult then result 46013.41956', () {
+    final result = controller.getFinalResult(value: kValue, cambio: kCambio);
+    //result
+    expect(
+      result,
+      46013.41956,
+    );
   });
 }
