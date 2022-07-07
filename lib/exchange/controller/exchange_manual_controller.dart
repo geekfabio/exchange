@@ -1,8 +1,9 @@
 class ExchangeManuelController {
-  final kIva = 0.14; //Iva(14%) Angola
-  final kCurrentTaxBank = 0.05; //Bank Tax (5%)
+  final _kIva = 0.14; //Iva(14%) Angola
+  final _kCurrentTaxBank = 0.02; //Bank Tax (2%)
+  final _kOperationTaxBank = 0.03; //Bank Tax (3%)
   double wiseValue = 0;
-  double percentTaxChargingCard = 0;
+  double percentTaxChargedCard = 0;
   double percentTaxOperationCard = 0;
 
   double getNoTaxResult({required String value, required String cambio}) {
@@ -17,24 +18,34 @@ class ExchangeManuelController {
 
   double getFinalResult({required String value, required String cambio}) {
     try {
-      final noTaxValue = getNoTaxResult(cambio: cambio, value: value);
-      final result =
-          noTaxValue + _getTaxBank(noTaxValue) + _getTaxIva(noTaxValue);
-      return result;
+      final resultado = double.parse(value) * double.parse(cambio);
+      //Carregar
+      final comissaoCompra = resultado * 0.02;
+      final ivaSobreCompra = comissaoCompra * 0.14;
+      percentTaxChargedCard = ivaSobreCompra;
+      final resultadoAposCompra = resultado + comissaoCompra + ivaSobreCompra;
+      //Compra
+      final comissao = resultadoAposCompra * 0.03;
+      percentTaxOperationCard = comissao;
+      final ivaSobreComissao = comissao * 0.14;
+      //Resultado
+      final resultadoSobreComissao =
+          resultadoAposCompra + comissao + ivaSobreComissao;
+      return resultadoSobreComissao;
     } on FormatException {
       return 0;
     }
   }
 
-  double getTotal(String value) {
-    return 1;
+  double _getTaxOperationBank(double value) {
+    return value * _kOperationTaxBank;
   }
 
   double _getTaxBank(double value) {
-    return value * kCurrentTaxBank;
+    return value * _kCurrentTaxBank;
   }
 
   double _getTaxIva(double value) {
-    return value * kIva;
+    return value * _kIva;
   }
 }

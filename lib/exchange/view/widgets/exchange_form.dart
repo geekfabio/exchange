@@ -1,4 +1,5 @@
 import 'package:exchange/app/theme/app_style.dart';
+import 'package:exchange/exchange/controller/exchange_manual_controller.dart';
 import 'package:exchange/exchange/view/widgets/exchange_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,17 @@ class ExchangeForm extends StatefulWidget {
 }
 
 class _ExchangeFormState extends State<ExchangeForm> {
+  final TextEditingController _controllerCambio = TextEditingController();
+  final TextEditingController _controllerValue = TextEditingController();
+  var _result = 0.0;
+  var _resulTaxCharged = 0.0;
+  var _resultTaxOperation = 0.0;
+  final _resultTaxWise = 0.0;
+
   @override
   Widget build(BuildContext context) {
+    final _controller = ExchangeManuelController();
+    print(_controller.percentTaxOperationCard);
     return Container(
       margin: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -27,10 +37,16 @@ class _ExchangeFormState extends State<ExchangeForm> {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                ExchanceFormField(hintText: 'Cambio'),
-                SizedBox(height: 5),
-                ExchanceFormField(hintText: 'Valor a converter USD'),
+              children: [
+                ExchanceFormField(
+                  hintText: 'Cambio',
+                  controller: _controllerCambio,
+                ),
+                const SizedBox(height: 5),
+                ExchanceFormField(
+                  hintText: 'Valor a converter USD',
+                  controller: _controllerValue,
+                ),
               ],
             ),
           ),
@@ -43,21 +59,21 @@ class _ExchangeFormState extends State<ExchangeForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Text(
-                  'Quantidade:',
+                  'Quantidade: $_resulTaxCharged',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Taxa carregar:',
+                  'Taxa carregar: $_resultTaxOperation',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Taxa Wise:',
+                  'Taxa Wise: $_resultTaxWise',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Resultado:',
+                  'Resultado: $_result',
                   style: AppStyle.textPrimary,
                 ),
               ],
@@ -66,7 +82,15 @@ class _ExchangeFormState extends State<ExchangeForm> {
           const SizedBox(height: 15),
           // ? Button to convert currency
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              _result = _controller.getFinalResult(
+                value: _controllerValue.text,
+                cambio: _controllerCambio.text,
+              );
+              _resulTaxCharged = _controller.percentTaxChargedCard;
+              _resultTaxOperation = _controller.percentTaxOperationCard;
+              setState(() {});
+            },
             style: AppStyle.primaryButton,
             child: const Text('Converter'),
           ),
