@@ -33,4 +33,24 @@ void main() {
       0,
     );
   });
+
+  group('Test Method getNoTaxResult', () {
+    test('When getNoTaxResult is Invalid format return 0', () {
+      final result =
+          controller.getFinalResult(value: 'Armando', cambio: 'Trindade');
+      //result
+      expect(
+        result,
+        0,
+      );
+    });
+    test('When getNoTaxResult is Invalid format return 0', () {
+      final result = controller.getFinalResult(value: kValue, cambio: kCambio);
+      //result
+      expect(
+        result,
+        46013.41956,
+      );
+    });
+  });
 }
