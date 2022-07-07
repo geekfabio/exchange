@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ExchangeTabs extends StatefulWidget {
-  const ExchangeTabs({Key? key}) : super(key: key);
+  const ExchangeTabs({Key? key, required this.onChanged}) : super(key: key);
+  final Function(int) onChanged;
 
   @override
   State<ExchangeTabs> createState() => _ExchangeTabsState();
@@ -15,6 +16,7 @@ class _ExchangeTabsState extends State<ExchangeTabs> {
       child: GestureDetector(
         onTap: () => setState(() {
           _selectedTab = _selectedTab == 0 ? 1 : 0;
+          widget.onChanged(_selectedTab);
         }),
         child: Container(
           padding: const EdgeInsets.all(8),
