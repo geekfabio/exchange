@@ -16,7 +16,6 @@ class ExchanceFormField extends StatelessWidget {
         hintStyle: const TextStyle(color: Color.fromARGB(255, 148, 148, 148)),
         fillColor: const Color.fromRGBO(255, 255, 255, 1),
         hoverColor: const Color.fromRGBO(255, 255, 255, 1),
-        isDense: false,
         border: const OutlineInputBorder(),
       ),
     );
