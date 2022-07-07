@@ -32,7 +32,13 @@ class _ExchangeAutomaticFormState extends State<ExchangeAutomaticForm> {
                 Visibility(
                   visible: isLoading,
                   replacement: const CircularProgressIndicator(),
-                  child: const Text('Cambio'),
+                  child: const Padding(
+                    padding: EdgeInsets.only(top: 8, bottom: 12),
+                    child: Text(
+                      'Cambio atual: 1Usd = 435kz',
+                      style: AppStyle.textPrimary,
+                    ),
+                  ),
                 ),
                 const ExchanceFormField(
                   hintText: 'Valor a converter USD',
