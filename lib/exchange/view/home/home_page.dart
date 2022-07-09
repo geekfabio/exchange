@@ -41,25 +41,7 @@ class _HomePageState extends State<HomePage>
     animationController.forward();
   }
 
-  static Matrix4 _matrix4(double value) => Matrix4(
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        value * 0.001,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-      );
-  final Matrix4 _perpetive = _matrix4(1.0);
+  //! Verify what's current Tab
   bool isManualMode = true;
   @override
   Widget build(BuildContext context) {
@@ -85,30 +67,37 @@ class _HomePageState extends State<HomePage>
           //Form Manual
           Stack(
             children: [
-              //Form Automatic
               Transform(
-                transform: _perpetive.scaled(1.0, 1.0, 1.0)
+                transform: Matrix4.identity()
+                  ..setEntry(1, 1, 1.0) // perspective
                   ..rotateX(0)
-                  ..rotateZ(0)
                   ..rotateY(
                     math.pi - _rotateAnimation.value * math.pi / 180,
                   ),
                 alignment: FractionalOffset.center,
                 child: Visibility(
-                    visible: isManualMode ? false : true,
-                    child: const ExchangeAutomaticForm(),),
-              ),
-              Transform(
-                transform: _perpetive.scaled(1.0, 1.0, 1.0)
-                  ..rotateX(0)
-                  ..rotateZ(0)
-                  ..rotateY(
-                    math.pi - (_rotateAnimation.value) * math.pi / 180,
-                  ),
-                alignment: FractionalOffset.center,
-                child: Visibility(
                   visible: isManualMode ? true : false,
                   child: const ExchangeForm(),
+                ),
+              ),
+              //Form Automatic
+              AnimatedOpacity(
+                opacity: isManualMode ? 0 : 1,
+                duration: const Duration(milliseconds: 2500),
+                curve: Curves.fastLinearToSlowEaseIn,
+                child: Transform(
+                  transform: Matrix4.identity()
+                    ..setEntry(1, 1, 1.0) // perspective
+                    ..rotateX(0)
+                    ..rotateY(
+                      math.pi - _rotateAnimation.value * math.pi / 180,
+                    )
+                    ..rotateZ(0),
+                  alignment: FractionalOffset.center,
+                  child: Visibility(
+                    visible: isManualMode ? false : true,
+                    child: const ExchangeAutomaticForm(),
+                  ),
                 ),
               ),
             ],
