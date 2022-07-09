@@ -19,34 +19,12 @@ class _HomePageState extends State<HomePage>
   late Animation<double> _rotateAnimation;
   late AnimationController animationController;
 
-  static Matrix4 _kMatrix(num value) {
-    return Matrix4(
-      1.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
-      value * 0.001,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
-    );
-  }
-
-  Matrix4 perspective = _kMatrix(1.0);
-
   @override
   void initState() {
+    // perspective = _kMatrix(1.0);
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 5),
+      duration: const Duration(milliseconds: 400),
     );
     _rotateAnimation =
         Tween<double>(begin: 180.0, end: 0.0).animate(animationController);
@@ -63,6 +41,25 @@ class _HomePageState extends State<HomePage>
     animationController.forward();
   }
 
+  static Matrix4 _matrix4(double value) => Matrix4(
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        value * 0.001,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+      );
+  final Matrix4 _perpetive = _matrix4(1.0);
   bool isManualMode = true;
   @override
   Widget build(BuildContext context) {
@@ -88,35 +85,30 @@ class _HomePageState extends State<HomePage>
           //Form Manual
           Stack(
             children: [
-              AnimatedOpacity(
-                opacity: isManualMode ? 0 : 1,
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.fastLinearToSlowEaseIn,
-                child: Transform(
-                  transform: perspective.scaled(1.0, 1.0, 1.0)
-                    ..rotateX(0)
-                    ..rotateY(
-                      math.pi - _rotateAnimation.value * math.pi / 180,
-                    )
-                    ..rotateZ(0),
-                  alignment: FractionalOffset.center,
-                  child: const ExchangeForm(),
-                ),
-              ),
               //Form Automatic
-              AnimatedOpacity(
-                opacity: isManualMode ? 1 : 0,
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.fastLinearToSlowEaseIn,
-                child: Transform(
-                  transform: perspective.scaled(1.0, 1.0, 1.0)
-                    ..rotateX(0)
-                    ..rotateY(
-                      math.pi - (180 + _rotateAnimation.value) * math.pi / 180,
-                    )
-                    ..rotateZ(0),
-                  alignment: FractionalOffset.center,
-                  child: const ExchangeAutomaticForm(),
+              Transform(
+                transform: _perpetive.scaled(1.0, 1.0, 1.0)
+                  ..rotateX(0)
+                  ..rotateZ(0)
+                  ..rotateY(
+                    math.pi - _rotateAnimation.value * math.pi / 180,
+                  ),
+                alignment: FractionalOffset.center,
+                child: Visibility(
+                    visible: isManualMode ? false : true,
+                    child: const ExchangeAutomaticForm(),),
+              ),
+              Transform(
+                transform: _perpetive.scaled(1.0, 1.0, 1.0)
+                  ..rotateX(0)
+                  ..rotateZ(0)
+                  ..rotateY(
+                    math.pi - (_rotateAnimation.value) * math.pi / 180,
+                  ),
+                alignment: FractionalOffset.center,
+                child: Visibility(
+                  visible: isManualMode ? true : false,
+                  child: const ExchangeForm(),
                 ),
               ),
             ],

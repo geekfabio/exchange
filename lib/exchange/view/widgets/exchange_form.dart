@@ -21,7 +21,6 @@ class _ExchangeFormState extends State<ExchangeForm> {
   @override
   Widget build(BuildContext context) {
     final _controller = ExchangeManuelController();
-    print(_controller.percentTaxOperationCard);
     return Container(
       margin: const EdgeInsets.all(18),
       decoration: BoxDecoration(
