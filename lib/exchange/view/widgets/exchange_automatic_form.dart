@@ -1,6 +1,12 @@
+// ignore_for_file: prefer_const_declarations
+
 import 'package:exchange/app/theme/app_style.dart';
+import 'package:exchange/exchange/controller/exchange_automatic_controller.dart';
+import 'package:exchange/exchange/model/coin_model.dart';
+import 'package:exchange/exchange/repository/coins_repository.dart';
 import 'package:exchange/exchange/view/widgets/exchange_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ExchangeAutomaticForm extends StatefulWidget {
   const ExchangeAutomaticForm({Key? key}) : super(key: key);
@@ -11,8 +17,29 @@ class ExchangeAutomaticForm extends StatefulWidget {
 
 class _ExchangeAutomaticFormState extends State<ExchangeAutomaticForm> {
   bool isLoading = true;
+  late Future<CoinModel> getCoinValue;
+  @override
+  void initState() {
+    super.initState();
+    getCoinValue = CoinsRepository().getWebSiteData();
+  }
+
+  final _controllerValue = TextEditingController();
+  String coinValue = '';
+  var _result = 0.0;
+  var _resulTaxCharged = 0.0;
+  var _resultTaxOperation = 0.0;
+  final _resultTaxWise = 0.0;
+
+  final moneyFormat = NumberFormat('#,##0.00', 'en_US');
+  void showInSnackBar(String value) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _controller = ExchangeAutomaticController();
+
     return Container(
       margin: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -29,18 +56,24 @@ class _ExchangeAutomaticFormState extends State<ExchangeAutomaticForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Visibility(
-                  visible: isLoading,
-                  replacement: const CircularProgressIndicator(),
-                  child: const Padding(
-                    padding: EdgeInsets.only(top: 8, bottom: 12),
-                    child: Text(
-                      'Cambio atual: 1Usd = 435kz',
-                      style: AppStyle.textPrimary,
-                    ),
-                  ),
+                FutureBuilder<CoinModel>(
+                  future: getCoinValue,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      coinValue = snapshot.data!.value;
+                      return costumText(
+                        'Cambio atual: 1Usd =  ${snapshot.data!.value}',
+                      );
+                    } else if (snapshot.hasError) {
+                      return costumText(
+                        'Verifique a conexão a internet',
+                      );
+                    }
+                    return const CircularProgressIndicator();
+                  },
                 ),
-                const ExchanceFormField(
+                ExchanceFormField(
+                  controller: _controllerValue,
                   hintText: 'Valor a converter USD',
                 ),
               ],
@@ -55,21 +88,21 @@ class _ExchangeAutomaticFormState extends State<ExchangeAutomaticForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Text(
-                  'Imposto (14%): ',
+                  'Imposto (14%): ${moneyFormat.format(_resulTaxCharged)} kz',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Taxa carregar: ',
+                  'Taxa carregar: ${moneyFormat.format(_resultTaxOperation)} kz',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Taxa Wise: ',
+                  'Taxa Wise: ${moneyFormat.format(_resultTaxWise)} kz',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Resultado: ',
+                  'Resultado: ${moneyFormat.format(_result)} kz',
                   style: AppStyle.textPrimary,
                 ),
               ],
@@ -79,6 +112,12 @@ class _ExchangeAutomaticFormState extends State<ExchangeAutomaticForm> {
           // ? Button to convert currency
           ElevatedButton(
             onPressed: () {
+              _result = _controller.getFinalResult(
+                value: _controllerValue.text,
+                cambio: coinValue,
+              );
+              _resulTaxCharged = _controller.percentTaxChargedCard;
+              _resultTaxOperation = _controller.percentTaxOperationCard;
               setState(() {});
             },
             style: AppStyle.primaryButton,
@@ -86,6 +125,16 @@ class _ExchangeAutomaticFormState extends State<ExchangeAutomaticForm> {
           ),
           const SizedBox(height: 20),
         ],
+      ),
+    );
+  }
+
+  Widget costumText(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 12),
+      child: Text(
+        text,
+        style: AppStyle.textPrimary,
       ),
     );
   }
