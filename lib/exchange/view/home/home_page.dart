@@ -7,6 +7,8 @@ import 'package:exchange/exchange/view/widgets/exchange_form.dart';
 import 'package:exchange/exchange/view/widgets/exchange_tabs.dart';
 import 'package:flutter/material.dart';
 
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -21,7 +23,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    // perspective = _kMatrix(1.0);
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: const Center(child: Text('Cambio Bai')),
         backgroundColor: const Color.fromRGBO(27, 26, 28, 1),
