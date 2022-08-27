@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage>
               _rotateAnimate();
             },
           ),
-          //Form Manual
+          //?Form Manual
           Stack(
             children: [
               Transform(
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage>
                   child: const ExchangeForm(),
                 ),
               ),
-              //Form Automatic
+              //?Form Automatic
               AnimatedOpacity(
                 opacity: isManualMode ? 0 : 1,
                 duration: const Duration(milliseconds: 2500),
