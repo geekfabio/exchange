@@ -1,7 +1,4 @@
 class ExchangeManuelController {
-  final _kIva = 0.14; //Iva(14%) Angola
-  final _kCurrentTaxBank = 0.02; //Bank Tax (2%)
-  final _kOperationTaxBank = 0.03; //Bank Tax (3%)
   double wiseValue = 0;
   double percentTaxChargedCard = 0;
   double percentTaxOperationCard = 0;
@@ -35,17 +32,5 @@ class ExchangeManuelController {
     } on FormatException {
       return 0;
     }
-  }
-
-  double _getTaxOperationBank(double value) {
-    return value * _kOperationTaxBank;
-  }
-
-  double _getTaxBank(double value) {
-    return value * _kCurrentTaxBank;
-  }
-
-  double _getTaxIva(double value) {
-    return value * _kIva;
   }
 }
