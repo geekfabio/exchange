@@ -2,6 +2,7 @@ import 'package:exchange/app/theme/app_style.dart';
 import 'package:exchange/exchange/controller/exchange_manual_controller.dart';
 import 'package:exchange/exchange/view/widgets/exchange_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ExchangeForm extends StatefulWidget {
   const ExchangeForm({Key? key}) : super(key: key);
@@ -11,12 +12,13 @@ class ExchangeForm extends StatefulWidget {
 }
 
 class _ExchangeFormState extends State<ExchangeForm> {
-  final TextEditingController _controllerCambio = TextEditingController();
-  final TextEditingController _controllerValue = TextEditingController();
+  final _controllerCambio = TextEditingController();
+  final _controllerValue = TextEditingController();
   var _result = 0.0;
   var _resulTaxCharged = 0.0;
   var _resultTaxOperation = 0.0;
   final _resultTaxWise = 0.0;
+  final moneyFormat = NumberFormat('#,##0.00', 'en_US');
 
   @override
   Widget build(BuildContext context) {
@@ -60,19 +62,19 @@ class _ExchangeFormState extends State<ExchangeForm> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Imposto (14%): $_resulTaxCharged',
+                  'Imposto (14%): ${moneyFormat.format(_resulTaxCharged)} kz',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Taxa carregar: $_resultTaxOperation',
+                  'Taxa carregar: ${moneyFormat.format(_resultTaxOperation)} kz',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Taxa Wise: $_resultTaxWise',
+                  'Taxa Wise: ${moneyFormat.format(_resultTaxWise)} kz',
                   style: AppStyle.textBody,
                 ),
                 Text(
-                  'Resultado: $_result',
+                  'Resultado: ${moneyFormat.format(_result)} kz',
                   style: AppStyle.textPrimary,
                 ),
               ],
